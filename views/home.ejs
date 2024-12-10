@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>URL Shortener</title>
+</head>
+<body>
+    <form method="POST" action="/api/url/create">
+        <label>Get Short URL for your website:</label>
+        <input type="text" name="originalUrl" placeholder="Enter URL">
+        <button type="submit">Generate</button>
+    </form>
+
+    <table border="1" style="border-collapse: collapse; width: 100%; margin-top: 20px; align-content:center;">
+        <thead>
+            <tr>
+                <th>Sr No.</th>
+                <th>Original URL</th>
+                <th>Short URL</th>
+                <th>Visits</th>
+            </tr>
+        </thead>
+        <tbody>
+            <% if (locals.allurls) { %>
+                <% allurls.forEach((url, index) => { %>
+                    <tr style="text-align: center;">
+                        <td><%= index + 1 %></td>
+                        <td><%= url.originalUrl %></td>
+                        <td>http://localhost:5000/api/url/visite/<%= url.shortId %></td>
+                        <td><%= url.clicksInfo.length %></td>
+                    </tr>
+                <% }) %>
+            <% } else { %>
+                <tr>
+                    <td colspan="3" style="text-align: center;">No URLs found</td>
+                </tr>
+            <% } %>
+        </tbody>
+    </table>
+</body>
+</html>
